@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import {
@@ -11,6 +13,7 @@ import {
   BrightnessHigh as LightThemeIcon,
   BrightnessLow as DarkThemeIcon
 } from '@mui/icons-material';
+import authAtom from '../../state/auth';
 
 const PageControls = ({
   onThemeToggle,
@@ -20,6 +23,18 @@ const PageControls = ({
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
   const c = color || 'inherit';
+  const setAuth = useSetRecoilState(authAtom);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear();
+    const userData = {
+      isLoggedIn: null,
+      meta: null
+    };
+    setAuth(userData);
+    navigate('/login');
+  };
 
   return (
     <>
@@ -31,7 +46,7 @@ const PageControls = ({
           <NotificationsIcon />
         </Badge>
       </IconButton>
-      <IconButton color={c}>
+      <IconButton color={c} onClick={() => logout()}>
         <InputIcon />
       </IconButton>
     </>
