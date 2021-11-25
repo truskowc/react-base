@@ -11,9 +11,12 @@ import {
   Card,
   CardContent
 } from '@mui/material';
+import { useSetRecoilState } from 'recoil';
+import authAtom from '../components/state/auth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const setAuth = useSetRecoilState(authAtom);
 
   return (
     <>
@@ -32,7 +35,7 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'test',
+              email: 'test@test.com',
               password: 'test123'
             }}
             validationSchema={Yup.object().shape({
@@ -40,7 +43,17 @@ const Login = () => {
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+              const uuid = 'akljsdfkj889898adfklasjdfjk';
+              const userData = {
+                isLoggedIn: uuid,
+                meta: 'JWTTOKENDATA',
+                user: JSON.stringify('Test User')
+              };
+              setAuth(userData);
+              localStorage.setItem('auth', uuid);
+              localStorage.setItem('keys', 'JWTTOKENDATA');
+              localStorage.setItem('user', JSON.stringify('Test User'));
+              navigate('/app/dashboard');
             }}
           >
             {({

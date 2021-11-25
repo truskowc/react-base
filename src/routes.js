@@ -8,10 +8,10 @@ import NotFound from 'src/pages/NotFound';
 import AuthenticatedLayout from 'src/components/layout/Authenticated/Layout';
 import UnauthenticatedLayout from 'src/components/layout/Unauthenticated/Layout';
 
-const routes = [
+const routes = (isLoggedIn) => [
   {
-    path: 'app',
-    element: <AuthenticatedLayout />,
+    path: '/app',
+    element: isLoggedIn ? <AuthenticatedLayout /> : <Navigate to="/login" />,
     children: [
       { path: 'home', element: <Home /> },
       { path: 'dashboard', element: <Dashboard /> },

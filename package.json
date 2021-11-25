@@ -2,7 +2,7 @@
   "name": "react-base",
   "author": "Chris Truskowski",
   "licence": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
@@ -44,6 +44,7 @@
     "react-router": "^6.0.1",
     "react-router-dom": "^6.0.1",
     "react-scripts": "^4.0.3",
+    "recoil": "^0.5.2",
     "yup": "^0.29.3"
   },
   "devDependencies": {
